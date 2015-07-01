@@ -93,6 +93,44 @@ angular
           }
         }
       })
+      .state('dashboard.keedio',{
+        templateUrl:'views/dashboard/keedio.html',
+        controller:'KeedioCtrl',
+        url:'/keedio',
+        resolve: {
+          loadMyFile:function($ocLazyLoad) {
+            return $ocLazyLoad.load({              
+              name:'elasticsearch.js',
+              files:[
+                'bower_components/elasticsearch/elasticsearch.js',
+                'bower_components/elasticsearch/elasticsearch.jquery.js',
+                'bower_components/elasticsearch/elasticsearch.angular.js'
+              ]
+            }), $ocLazyLoad.load({
+              name:'chart.js',
+              files:[
+                'bower_components/d3/d3.js',
+                'bower_components/c3/c3.js',
+                'bower_components/c3/c3.css'
+              ]
+            })
+            ,$ocLazyLoad.load({
+              name:'angular-fqueue',
+              files:[
+                'bower_components/angular-fqueue/angular-fqueue.js'
+              ]
+            })
+            ,$ocLazyLoad.load({
+                name:'json3',
+                files:['bower_components/json3/lib/json3.js']
+            })
+            ,$ocLazyLoad.load({
+                name:'sbAdminApp',
+                files:['scripts/controllers/keedioContoller.js']
+            })
+          }
+        }
+    })
       .state('dashboard.form',{
         templateUrl:'views/form.html',
         url:'/form'

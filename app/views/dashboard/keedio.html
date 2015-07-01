@@ -1,0 +1,46 @@
+<div ng-controller="KeedioCtrl" ng-init="doFirst()">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Keedio dashboard</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        
+        <stats number="{{clients}}" comments="Clients!" colour="primary" type="user"></stats>
+        <stats number="{{maxbalance}}" comments="Max Balance!" colour="green" type="money"></stats>
+        <stats number="{{minbalance}}" comments="Min Balance!" colour="red" type="money"></stats>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-9 col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Balance Histogram</div>
+                <div class="panel-body">
+                    <div id="bar-chart"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-12" >
+            <div class="panel panel-default">
+                <div class="panel-heading">Age distribution</div>
+                <div class="panel-body">
+                    <div id="pie-chart"></div>
+                </div>
+            </div>
+        </div>
+    <div>
+    <div class="row">
+        <div class="col-lg-12 col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Real time example</div>
+                <div class="panel-body">
+                    <div id="real-time"></div>
+                </div>
+            </div>
+        </div>
+    <div>
+
+
+</div>
