@@ -56,8 +56,6 @@ myApp.controller('KeedioCtrl', ['$scope', 'FixedQueue', function ($scope, FixedQ
         log: 'trace'
     });
 
-    var cont = 0;
-
     $scope.doFirst = function (){
 
         var docs = client.search({
@@ -87,11 +85,18 @@ myApp.controller('KeedioCtrl', ['$scope', 'FixedQueue', function ($scope, FixedQ
     }
 
     function doRealTime() {
-        //var timeSerie = FixedQueue(20).unshift['x'];
+        var timeSerie;
         var dataSerie;
+        var dataSerie2;
+        var dataSerie3;
+        var dataSerie4;
 
         try {
+            timeSerie = FixedQueue(20, []);
             dataSerie = FixedQueue(20, []);
+            dataSerie2 = FixedQueue(20, []);
+            dataSerie3 = FixedQueue(20, []);
+            dataSerie4 = FixedQueue(20, []);
         } catch (err) {
             log.console(err);
         }
@@ -101,25 +106,56 @@ myApp.controller('KeedioCtrl', ['$scope', 'FixedQueue', function ($scope, FixedQ
         var chart = c3.generate({
             bindto: '#real-time',
             data: {
-        //        x: 'x',
-        //        xFormat: '%Y%m%d', // 'xFormat' can be used as custom format of 'x'
+                x: 'x',
+                xFormat: '%Y-%m-%d %H:%M:%S',
                 columns: [
-        //            timeSerie,
-                    dataSerie
-                ]
+                    timeSerie,
+                    dataSerie,
+                    dataSerie2,
+                    dataSerie3,
+                    dataSerie4,
+                ],
+                type: 'line',
+                types: {
+                    dataSerie2: 'spline',
+                    dataSerie3: 'area',
+                    dataSerie4: 'bar',
+                }                
             },
             transition: {
-                duration: 0
+                duration: 0,
+            },
+            axis: {
+                x: {
+                    type: 'timeseries',
+                    tick: {
+                        format: '%Y-%m-%d %H:%M:%S',
+                    }
+                }
             }
         });
 
         
         setInterval(function () {
+            var formatter = d3.time.format("%Y-%m-%d %H:%M:%S");
+            var date = new Date();
+            timeSerie.push(formatter(date));
             dataSerie.push(Math.floor(Math.random() * 100) + 1);
-            dataSerie.splice(0,1,'x')
+            dataSerie2.push(Math.floor(Math.random() * 100) + 1);
+            dataSerie3.push(Math.floor(Math.random() * 100) + 1);
+            dataSerie4.push(Math.floor(Math.random() * 100) + 1);
+            timeSerie.splice(0,1,'x');
+            dataSerie.splice(0,1,'dataSerie');
+            dataSerie2.splice(0,1,'dataSerie2');
+            dataSerie3.splice(0,1,'dataSerie3');
+            dataSerie4.splice(0,1,'dataSerie4');
             chart.load({
                 columns: [
-                    dataSerie
+                    timeSerie,
+                    dataSerie,
+                    dataSerie2,
+                    dataSerie3,
+                    dataSerie4
                 ]
             });
         }, 1000);
